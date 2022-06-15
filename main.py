@@ -115,7 +115,7 @@ def generateNewTile():
     while(GRID_DATA[a-1][b-1]!=0):
         a = random.randint(1,4)
         b = random.randint(1,4)
-    GRID_ITEMS[a-1][b-1].setNum(2, True)
+    GRID_ITEMS[a-1][b-1].setNum(random.choice((2,2,2,4)), True)
     GRID_DATA[a-1][b-1] = 2
     #ACTIVE_SQUARES.append(f"{a}{b}")
     
@@ -167,19 +167,18 @@ def convertToColoumnsOrRows(list1):
 
 def moveLeft():
     global GRID_DATA
-    tempcopy_GRID_DATA = GRID_DATA
+    tempcopy_GRID_DATA = [thing for thing in GRID_DATA]
     new_GRID_DATA = []
     for index,row in enumerate(GRID_DATA): new_GRID_DATA.append(thingInMoveFunctions(row,index,"X"))
     GRID_DATA = new_GRID_DATA
     for i in range(4):
         for j in range(4): GRID_ITEMS[i][j].setNum(GRID_DATA[i][j])
     if(GRID_DATA==tempcopy_GRID_DATA): return False
-    del tempcopy_GRID_DATA
     return True
 
 def moveUp(): # Just going to 'rotate' the list becuase I really cant  be bothered to do somthing using effort with numbers
     global GRID_DATA
-    tempcopy_GRID_DATA = GRID_DATA
+    tempcopy_GRID_DATA = [thing for thing in GRID_DATA]
     new_GRID_DATA = []
     for index,row in enumerate(convertToColoumnsOrRows(GRID_DATA)): new_GRID_DATA.append(thingInMoveFunctions(row,index,"Y"))
     GRID_DATA = convertToColoumnsOrRows(new_GRID_DATA)
@@ -192,7 +191,7 @@ def reverse(lst): return [ele for ele in reversed(lst)] # this saves me effort
 
 def moveDown(): # Just going to 'rotate' the list becuase I really cant  be bothered to do somthing using effort with numbers
     global GRID_DATA
-    tempcopy_GRID_DATA = GRID_DATA
+    tempcopy_GRID_DATA = [thing for thing in GRID_DATA]
     new_GRID_DATA = []
     for index,row in enumerate(convertToColoumnsOrRows(GRID_DATA)): new_GRID_DATA.append(reverse(thingInMoveFunctions(reverse(row),index,"Y",True)))
     GRID_DATA = convertToColoumnsOrRows(new_GRID_DATA)
@@ -203,7 +202,7 @@ def moveDown(): # Just going to 'rotate' the list becuase I really cant  be both
 
 def moveRight():
     global GRID_DATA
-    tempcopy_GRID_DATA = GRID_DATA
+    tempcopy_GRID_DATA = [thing for thing in GRID_DATA]
     new_GRID_DATA = []
     for index,row in enumerate(GRID_DATA): new_GRID_DATA.append(reverse(thingInMoveFunctions(reverse(row),index,"X",True)))
     GRID_DATA = new_GRID_DATA
